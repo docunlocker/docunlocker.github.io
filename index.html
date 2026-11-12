@@ -10,8 +10,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="DocUnlocker">
 <link rel="manifest" href="./manifest.json">
-<link rel="preload" as="font" type="font/woff2" href="./fonts/great-vibes-latin-400-normal.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="./fonts/outfit-latin-600-normal.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="./great-vibes-latin-400-normal.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="./outfit-latin-600-normal.woff2" crossorigin>
 <link rel="icon" type="image/png" href="./icon-192.png">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <script>try{var _t=JSON.parse(localStorage.getItem('xpu.v1')||'null');if(_t&&(_t.theme==='light'||_t.theme==='dark'))document.documentElement.setAttribute('data-theme',_t.theme);}catch(e){}</script>
@@ -131,10 +131,10 @@ footer.ft{display:flex;justify-content:space-between;color:var(--ink2);font-size
 .crumb .cur{color:var(--ink2);font-weight:600}
 
 /* ---------- splash screen (fonts are bundled, nothing is loaded from the internet) ---------- */
-@font-face{font-family:'Outfit';font-style:normal;font-weight:600;font-display:swap;src:url(./fonts/outfit-latin-600-normal.woff2) format('woff2')}
-@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url(./fonts/inter-latin-400-normal.woff2) format('woff2')}
-@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url(./fonts/inter-latin-500-normal.woff2) format('woff2')}
-@font-face{font-family:'Great Vibes';font-style:normal;font-weight:400;font-display:swap;src:url(./fonts/great-vibes-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Outfit';font-style:normal;font-weight:600;font-display:swap;src:url(./outfit-latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url(./inter-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url(./inter-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'Great Vibes';font-style:normal;font-weight:400;font-display:swap;src:url(./great-vibes-latin-400-normal.woff2) format('woff2')}
 #splash{position:fixed;inset:0;z-index:1000;display:flex;flex-direction:column;overflow:hidden;color:#fff;
   font-family:'Outfit',system-ui,sans-serif;opacity:1;transition:opacity .6s ease;
   background:radial-gradient(circle at 50% 30%,#1d2e6b 0%,#120d2b 50%,#05020a 100%);

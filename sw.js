@@ -5,8 +5,8 @@ const EXTRA_PRECACHE = [
   './manifest.json', './jszip.min.js', './qpdf.js', './qpdf.wasm',
   './icon-192.png', './icon-512.png', './icon-maskable-192.png', './icon-maskable-512.png',
   './apple-touch-icon.png', './sscr.png',
-  './fonts/outfit-latin-600-normal.woff2', './fonts/inter-latin-400-normal.woff2',
-  './fonts/inter-latin-500-normal.woff2', './fonts/great-vibes-latin-400-normal.woff2'
+  './outfit-latin-600-normal.woff2', './inter-latin-400-normal.woff2',
+  './inter-latin-500-normal.woff2', './great-vibes-latin-400-normal.woff2'
 ];
 
 self.addEventListener('install', event => {
