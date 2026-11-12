@@ -47,6 +47,10 @@ header.top h1{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-sp
 .hbtns{display:flex;gap:6px;flex:0 0 auto}
 .hbtns button{background:rgba(255,255,255,.12);color:var(--head-ink);border:0;border-radius:8px;padding:8px 12px;font-size:13.5px;font-weight:600;cursor:pointer;white-space:nowrap}
 .hbtns button:active{background:rgba(255,255,255,.25)}
+.back{flex:0 0 auto;background:rgba(255,255,255,.12);color:var(--head-ink);border:0;border-radius:8px;padding:7px 9px;cursor:pointer;display:inline-flex;align-items:center}
+.back[hidden]{display:none}
+.back:active{background:rgba(255,255,255,.25)}
+.back svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 .hbtns button.ico{padding:8px 11px;display:inline-flex;align-items:center}
 .hbtns button.ico svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 nav.tabs{display:flex;gap:6px;margin:0 0 12px;flex-wrap:wrap}
@@ -226,6 +230,7 @@ footer.ft{display:flex;justify-content:space-between;color:var(--ink2);font-size
   </div>
   <header class="top">
     <div class="hrow">
+      <button id="back-btn" class="back" type="button" aria-label="Back" title="Back" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
       <h1 id="page-title">DocUnlocker</h1>
       <div class="hbtns">
         <button id="m-about" type="button">About</button>
@@ -502,6 +507,7 @@ footer.ft{display:flex;justify-content:space-between;color:var(--ink2);font-size
   function renderHome() {
     screen = 'home';
     $('#page-title').textContent = 'DocUnlocker';
+    $('#back-btn').hidden = true;
     $('#crumb').hidden = true;
     document.documentElement.style.removeProperty('--tc');
     const v = $('#view'); v.innerHTML = '';
@@ -526,6 +532,7 @@ footer.ft{display:flex;justify-content:space-between;color:var(--ink2);font-size
     const t = TOOLS[tab];
     document.documentElement.style.setProperty('--tc', t.tc);
     $('#page-title').textContent = t.title;
+    $('#back-btn').hidden = false;
     const crumb = $('#crumb'); crumb.hidden = false;
     crumb.innerHTML = '<a id="back-home" role="button" tabindex="0">‹ Home</a><span class="sep">›</span><span class="cur">' + esc(t.title) + '</span>';
     const bh = $('#back-home'); bh.addEventListener('click', goHome);
@@ -741,6 +748,7 @@ footer.ft{display:flex;justify-content:space-between;color:var(--ink2);font-size
 
   /* ---------------- tabs + brand ---------------- */
   $('#brand').addEventListener('click', goHome);
+  $('#back-btn').addEventListener('click', goHome);
 
   /* ---------------- boot ---------------- */
   applyTheme();
