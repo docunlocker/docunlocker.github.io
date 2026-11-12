@@ -53,9 +53,6 @@ header.top h1{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-sp
 .back svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 .hbtns button.ico{padding:8px 11px;display:inline-flex;align-items:center}
 .hbtns button.ico svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-nav.tabs{display:flex;gap:6px;margin:0 0 12px;flex-wrap:wrap}
-nav.tabs button{flex:1 1 auto;background:var(--chip);color:var(--ink);border:0;border-radius:999px;padding:9px 14px;font-size:14.5px;font-weight:600;cursor:pointer}
-nav.tabs button.on{background:var(--accent);color:var(--accent-ink)}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 16px 18px;margin:0 0 12px;box-shadow:var(--shadow)}
 .toolhead{display:flex;align-items:center;gap:12px;margin:0 0 12px}
 .toolhead .bicon{width:48px;height:48px;border-radius:50%;background:var(--tc,var(--accent));color:#fff;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
@@ -411,12 +408,17 @@ footer.ft{display:flex;justify-content:space-between;color:var(--ink2);font-size
         const n = (x.match(SHEET_PROT) || []).length;
         if (n) { x = x.replace(SHEET_PROT, ''); zip.file(path, x); sheets += n; }
       } else if (/^xl\/workbook\.xml$/i.test(path)) {
-        let x = await zip.file(path).async('string');
-        const nb = (x.match(BOOK_PROT) || []).length;
-        if (nb) { x = x.replace(BOOK_PROT, ''); book += nb; }
+        let x = await zip.file(path).async('string'); let changed = false;
+        // only strip/count workbookProtection that actually locks something (ignore empty/benign ones)
+        let nb = 0;
+        x = x.replace(BOOK_PROT, m => {
+          if (/(lockStructure|lockWindows|lockRevision)=["']?(1|true)["']?|workbookPassword=|workbookAlgorithmName=/i.test(m)) { nb++; changed = true; return ''; }
+          return m;
+        });
+        book += nb;
         const ns = (x.match(FILE_SHARE) || []).length;
-        if (ns) { x = x.replace(FILE_SHARE, ''); share += ns; }
-        if (nb || ns) zip.file(path, x);
+        if (ns) { x = x.replace(FILE_SHARE, ''); share += ns; changed = true; }
+        if (changed) zip.file(path, x);
       }
     }
     const out = await zip.generateAsync({ type: 'blob', compression: 'DEFLATE', mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
