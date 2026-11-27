@@ -526,8 +526,24 @@ footer.ft{display:flex;justify-content:space-between;color:var(--ink2);font-size
     });
     v.appendChild(grid);
   }
-  function openTool(k) { tab = k; files = []; screen = k; renderTool(); try { window.scrollTo(0, 0); } catch (e) {} }
-  function goHome() { files = []; renderHome(); try { window.scrollTo(0, 0); } catch (e) {} }
+  /* Back gesture / back button: opening a tool adds one history entry, so Back returns to Home;
+     Back on Home closes the app. */
+  function showTool(k) { tab = k; files = []; screen = k; renderTool(); try { window.scrollTo(0, 0); } catch (e) {} }
+  function showHome() { files = []; renderHome(); try { window.scrollTo(0, 0); } catch (e) {} }
+  function openTool(k) {
+    try { history.pushState({ s: k }, ''); } catch (e) {}
+    showTool(k);
+  }
+  function goHome() {
+    let onTool = false;
+    try { onTool = !!(history.state && history.state.s && history.state.s !== 'home'); } catch (e) {}
+    if (onTool) { try { history.back(); return; } catch (e) {} }
+    showHome();
+  }
+  window.addEventListener('popstate', e => {
+    const k = e.state && e.state.s;
+    if (k && k !== 'home' && TOOLS[k]) showTool(k); else showHome();
+  });
 
   /* ---------------- tool page ---------------- */
   function renderTool() {
@@ -756,6 +772,7 @@ footer.ft{display:flex;justify-content:space-between;color:var(--ink2);font-size
   applyTheme();
   $('#ver').textContent = 'Version: ' + VERSION;
   $('#about-ver').textContent = 'Version ' + VERSION;
+  try { history.replaceState({ s: 'home' }, ''); } catch (e) {}
   renderHome();
 
   // show What's New once per new version, after the splash
