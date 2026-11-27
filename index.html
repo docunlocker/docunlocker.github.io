@@ -303,7 +303,7 @@ footer.ft{display:flex;justify-content:space-between;color:var(--ink2);font-size
 <script>
 (function () {
   'use strict';
-  const VERSION = 'v2026.11.12';
+  const VERSION = 'v2026.11.27';
   const $ = s => document.querySelector(s);
   const el = (t, c, h) => { const e = document.createElement(t); if (c) e.className = c; if (h != null) e.innerHTML = h; return e; };
   const esc = s => String(s).replace(/[&<>"]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]));
@@ -750,10 +750,7 @@ footer.ft{display:flex;justify-content:space-between;color:var(--ink2);font-size
   try { const mq = window.matchMedia('(prefers-color-scheme: dark)'); (mq.addEventListener ? mq.addEventListener('change', applyTheme) : mq.addListener && mq.addListener(applyTheme)); } catch (e) {}
 
   const WN = [
-    { tag: 'New', text: 'First release in the MEPtools family look — splash screen, Light / Dark / System theme and offline support.' },
-    { tag: 'New', text: 'Excel: removes sheet, workbook and read-only / modify protection from .xlsx / .xlsm / .xls files.' },
-    { tag: 'New', text: 'PDF Unlock: removes print / copy / edit restrictions, or the open password when you know it.' },
-    { tag: 'New', text: 'PDF Lock: adds an AES-256 open password, with an option to block print / copy / edit.' },
+    { tag: 'Fix', text: 'Back gesture / back button now returns from a tool to the Home page. On Home, one Back closes the app.' },
   ];
   function openWhatsNew() {
     $('#wn-ver').textContent = 'Version ' + VERSION;

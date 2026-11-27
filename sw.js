@@ -1,4 +1,4 @@
-const CACHE = 'docunlocker-v2026.11.12.5';
+const CACHE = 'docunlocker-v2026.11.27';
 const OFFLINE_PAGE = './';
 // The page is required; the rest are best-effort so a missing file can never stop the install.
 const EXTRA_PRECACHE = [
